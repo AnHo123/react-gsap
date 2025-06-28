@@ -1,0 +1,175 @@
+import { useRef, useState } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
+import "./BeforeWeBeginCard.css";
+
+const clientTypes = [
+  {
+    key: "corporate",
+    title: "Corporate Leaders",
+    image:
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop",
+    paragraphs: [
+      "When you're leading teams, negotiating deals, or shaping culture, your voice isn’t just a tool — it’s a signal. It tells people whether they can trust you, follow you, or bet on you.",
+      "If you're stepping into higher stakes, larger rooms, or moments where clarity, composure, and presence are non-negotiable — then this is exactly the work you need.",
+    ],
+  },
+  {
+    key: "ted",
+    title: "TED-Style Speakers",
+    image:
+      "https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=2070&auto=format&fit=crop",
+    paragraphs: [
+      "You have something inside you worth saying. A message. A story. A truth the world needs to hear — but maybe you don’t yet know how to shape it. Or deliver it with the power it deserves.",
+      "If you're not just chasing applause, but aiming to move people — to spark new thinking, shift paradigms, or ignite action — this is where that transformation begins.",
+    ],
+  },
+  {
+    key: "entrepreneurs",
+    title: "Entrepreneurs and Founders",
+    image:
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1974&auto=format&fit=crop",
+    paragraphs: [
+      "You’re not just pitching a product. You’re pitching a vision, a future — a version of the world that only exists if people believe in what you’re building. That takes more than confidence. It takes clarity, conviction, and a way of speaking that cuts through the noise.",
+      "If you're ready to sharpen the way you pitch, persuade, and lead — not just for investors, but for your team, your market, and yourself — then we’re a perfect match.",
+    ],
+  },
+  {
+    key: "jobseekers",
+    title: "Job Seekers and Ivy League Applicants",
+    image:
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop",
+    paragraphs: [
+      "Job interviews aren’t just about answering questions — they are about owning your story. Most people don’t struggle because they lack skills — they struggle because they don’t know how to speak with presence and clarity when it counts.",
+      "If you’re ready to stop hoping you’ll come across well — and start ensuring it — then we’re a great fit.",
+    ],
+  },
+  {
+    key: "coaches",
+    title: "Coaches and Consultants",
+    image:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop",
+    paragraphs: [
+      "When your business is built on trust, how you speak is your brand. The most successful professionals don’t just deliver results — they communicate value, authority, and alignment in every interaction.",
+      "If you’re ready to sound like the expert you already are — and get clients to feel that from the very first word — let’s work together.",
+    ],
+  },
+  {
+    key: "academics",
+    title: "Academics, Experts, and Thought-Leaders",
+    image:
+      "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1887&auto=format&fit=crop",
+    paragraphs: [
+      "Expertise is only half the battle. The other half? Making people care. I work with researchers who struggle to translate their knowledge into messages that resonate outside their field.",
+      "If you're ready to bridge the gap between what you know and what others hear — and to make complexity feel clear, urgent, and human — then yes, we’re a great fit.",
+    ],
+  },
+  {
+    key: "career",
+    title: "Early-Mid Career Professionals",
+    image:
+      "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1887&auto=format&fit=crop",
+    paragraphs: [
+      "Maybe you’ve got the ideas and the drive — but in meetings, you freeze up, ramble, or go unheard. It’s not that you’re not capable. It’s that you’ve never been shown how to speak in a way that makes people listen.",
+      "If you're done letting fear be the loudest voice in your head, this work will change you. Not just how you speak — but how you see yourself.",
+    ],
+  },
+];
+export default function BeforeWeBeginCard() {
+  const [clientActive, setClientActive] = useState(0);
+
+  const ref = useRef(null);
+  const isInView = useInView(ref, { amount: 0.5, once: true });
+
+  const fadeUp = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (delay = 0) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay, duration: 0.5, ease: "easeOut" },
+    }),
+  };
+
+  return (
+    <section ref={ref} className="bwgc-section bwgc-final-section">
+      <motion.h2
+        animate={isInView ? "visible" : "hidden"}
+        variants={fadeUp}
+        className="bwgc-final-content-title"
+      >
+        Are We a Good Fit?
+      </motion.h2>
+      <motion.div
+        animate={isInView ? "visible" : "hidden"}
+        variants={fadeUp}
+        className="bwgc-final-container"
+      >
+        <div className="bwgc-final-content">
+          <ul className="bwgc-client-types">
+            {clientTypes.map((client, idx) => (
+              <li
+                key={client.key}
+                onClick={() => setClientActive(idx)}
+                className={`bwgc-client-type ${
+                  idx === clientActive ? "bwgc-active" : ""
+                }`}
+                data-client={client.key}
+              >
+                {client.title}
+                <motion.div
+                  animate={idx === clientActive ? "expand" : "collapse"}
+                  initial="collapse"
+                  variants={{
+                    expand: { height: "auto", opacity: 1 },
+                    collapse: { height: 0, opacity: 0 },
+                  }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="bwgc-client-content-wrapper-mobile"
+                >
+                  <div className="bwgc-client-content-mobile">
+                    {client.paragraphs.map((text, i) => (
+                      <p key={i}>{text}</p>
+                    ))}
+                  </div>
+                  <div
+                    className="bwgc-client-image-mobile"
+                    style={{
+                      backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${client.image})`,
+                    }}
+                  ></div>
+                </motion.div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={clientTypes[clientActive].key}
+            className="bwgc-client-content-wrapper-desktop"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            <div className="bwgc-client-image-container">
+              <div
+                className="bwgc-client-image"
+                data-client="corporate"
+                style={{
+                  backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${clientTypes[clientActive].image})`,
+                }}
+              ></div>
+            </div>
+            <div className="bwgc-client-description">
+              <div className="bwgc-client-text" data-client="corporate">
+                <h3>{clientTypes[clientActive].title}</h3>
+                {clientTypes[clientActive].paragraphs.map((text, i) => (
+                  <p key={i}>{text}</p>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </motion.div>
+    </section>
+  );
+}
