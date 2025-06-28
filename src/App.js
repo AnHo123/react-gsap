@@ -2,6 +2,7 @@ import "./App.css";
 import BeforeWeBeginCard from "./components/before-we-begin-card/BeforeWeBeginCard";
 import BeforeWeBegin from "./components/before-we-begin/BeforeWeBegin";
 import Book from "./components/book/Book";
+import BottomContent from "./components/bottom-content/BottomContent";
 import CardCarousel from "./components/card-carousel/CardCarousel";
 import CardScroll from "./components/card-scroll/CardScroll";
 import ClientCarousel from "./components/client-carousel/ClientCarousel";
@@ -27,6 +28,7 @@ function App() {
       <Book />
       <VideoTestimonial />
       <Faq />
+      <BottomContent />
     </>
   );
 }
