@@ -18,7 +18,7 @@ export default function Book() {
   };
 
   return (
-    <section className="book-section">
+    <section className="book-section" id="book">
       <div className="floating-elements">
         <div
           className="floating-circle"
@@ -91,15 +91,21 @@ export default function Book() {
             ))}
           </motion.div>
 
-          <motion.button
-            className="book-cta-button"
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            custom={0.5}
-            variants={fadeUp}
+          <a
+            href="https://www.paypal.com/ncp/payment/QQMT5WW5G4RKW"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            Buy Now
-          </motion.button>
+            <motion.button
+              className="book-cta-button"
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              custom={0.5}
+              variants={fadeUp}
+            >
+              Buy Now
+            </motion.button>
+          </a>
         </div>
       </div>
     </section>

@@ -80,6 +80,15 @@ export default function BeforeWeBegin() {
             ease: "power2.in",
           },
           "-=0.25"
+        )
+        .to(
+          ".bwg-main-container",
+          {
+            backgroundColor: "transparent",
+            duration: 0.5,
+            ease: "power2.inOut",
+          },
+          "<"
         );
 
       // --- CARDS SECTION ANIMATION ---
@@ -162,6 +171,11 @@ export default function BeforeWeBegin() {
               opacity: 0,
               y: 20,
               stagger: 0.015,
+            })
+            .to(".bwg-main-container", {
+              backgroundColor: "#000000",
+              duration: 1,
+              ease: "power2.inOut",
             });
         },
       });

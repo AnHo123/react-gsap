@@ -21,6 +21,7 @@
 .bwgc-final-section {
   color: #fff;
   background: #000;
+  background: linear-gradient(180deg, #000000 20%, #6d5bb9 100%);
   z-index: 3;
 }
 
@@ -55,7 +56,7 @@
   padding: 0.5rem 0 0.5rem 1rem;
   font-size: clamp(1.2rem, 2vw, 1.5rem);
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgb(217, 217, 217);
   cursor: pointer;
   transition: color 0.4s ease; /* GSAP will handle transform */
   position: relative;

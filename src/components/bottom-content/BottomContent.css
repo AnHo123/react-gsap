@@ -14,7 +14,6 @@
 .ready-section {
   line-height: 1.6;
   color: var(--text-dark);
-  background-color: #000;
   overflow-x: hidden;
   min-height: 100vh;
 }
@@ -84,13 +83,7 @@
 /* Ready to Own the Stage Section */
 .ready-section {
   padding: 120px 0;
-  background: linear-gradient(
-    135deg,
-    #4c6ef5 0%,
-    #667eea 25%,
-    #764ba2 75%,
-    #8b5fbf 100%
-  );
+
   color: white;
   text-align: center;
   position: relative;
@@ -99,8 +92,25 @@
   align-items: center;
 }
 
-.ready-section:before {
-  content: "";
+.ready-section-bg {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    #4c6ef5 0%,
+    #667eea 25%,
+    #764ba2 75%,
+    #8b5fbf 100%
+  );
+  z-index: -1;
+}
+
+.ready-section-bg-anim {
+  opacity: 0;
   position: absolute;
   top: -50%;
   left: -50%;

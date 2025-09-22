@@ -27,3 +27,11 @@
   filter: blur(20px);
   z-index: -1;
 }
+
+.card-content-text p:last-child {
+  margin-bottom: 0;
+}
+
+.card-content-text p {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}

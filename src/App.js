@@ -13,6 +13,15 @@ import Promo from "./components/promo/Promo";
 import VideoService from "./components/video-service/VideoService";
 import VideoTestimonial from "./components/video-testimonial/VideoTestimonial";
 
+function FaqAnimatedCircles() {
+  return (
+    <div className="faq-animated-circles-wrapper">
+      <div className="faq-animated-circle1" />
+      <div className="faq-animated-circle2" />
+    </div>
+  );
+}
+
 function App() {
   return (
     <>
@@ -23,12 +32,21 @@ function App() {
       <ClientCarousel />
       <CardCarousel />
       <VideoService />
-      <BeforeWeBegin />
-      <BeforeWeBeginCard />
+      <div className="bwg-main-container-wrapper">
+        <div className="bwg-main-container-wrapper-bg"></div>
+        <BeforeWeBegin />
+        <BeforeWeBeginCard />
+      </div>
       <Book />
-      <VideoTestimonial />
-      <Faq />
-      <BottomContent />
+      <div className="end-content-wrapper">
+        <div className="end-content-background-circle"></div>
+        <VideoTestimonial />
+        <div style={{ position: "relative" }}>
+          <FaqAnimatedCircles />
+          <Faq />
+        </div>
+        <BottomContent />
+      </div>
     </>
   );
 }

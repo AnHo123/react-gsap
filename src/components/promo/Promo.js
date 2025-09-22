@@ -2,6 +2,7 @@ import "./Promo.css";
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Video from "./Promo.mp4";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -82,14 +83,18 @@ export default function Promo() {
         </p>
       </div>
       <div class="promotion-video-wrapper" ref={wrapperRef}>
-        <iframe
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ&controls=0"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-        ></iframe>
+        <video
+          className="video-popup-video"
+          width="100%"
+          controls
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
+          <source src={Video} type="video/mp4" />
+          Your browser does not support HTML video.
+        </video>
       </div>
     </section>
   );

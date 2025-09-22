@@ -69,7 +69,7 @@ export default function Header() {
                 <a href="#clients">Clients</a>
               </li>
               <li>
-                <a href="#promotion">Training</a>
+                <a href="#video-service">Training</a>
               </li>
               <li>
                 <a href="#book">Buy the Book</a>
@@ -91,13 +91,18 @@ export default function Header() {
               <a href="#clients">Clients</a>
             </li>
             <li>
-              <a href="#promotion">Training</a>
+              <a href="#video-service">Training</a>
             </li>
             <li>
               <a href="#book">Buy the Book</a>
             </li>
             <li>
-              <a href="#contact" class="btn btn-primary">
+              <a
+                href="https://calendly.com/speak-with-simon/discovery-session"
+                class="btn btn-primary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Contact
               </a>
             </li>

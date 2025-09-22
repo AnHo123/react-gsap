@@ -31,16 +31,23 @@ export default function CardScrollItem({
           className="card-content-bg absolute inset-0"
           style={{ backgroundColor: project.color, zIndex: 0 }}
         ></div>
-        <div className="relative w-full md:w-3/5 p-4 md:p-8 flex flex-col justify-center h-full text-center md:text-left z-10">
-          <h2 className="text-xl md:text-2xl font-extrabold mb-2">
+        <div className="card-content-text relative w-full md:w-3/5 p-4 md:p-8 flex flex-col justify-center h-full text-center md:text-left z-10">
+          {/* <h2 className="text-xl md:text-2xl font-extrabold mb-2 xl:text-3xl xl:mb-4">
             {project.title}
-          </h2>
-          <p className="text-sm md:text-lg opacity-90 leading-relaxed">
-            {project.description}
-          </p>
+          </h2> */}
+          {project.description.map((line, index) => (
+            <p
+              key={index}
+              className="text-sm md:text-lg !leading-normal opacity-90 mb-2 xl:mb-4 xl:text-[1.3rem] xl:!leading-tight"
+            >
+              {line}
+            </p>
+          ))}
           {project.linkText && (
             <a
               href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-6 px-6 py-3 bg-white text-gray-800 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300 font-semibold self-center md:self-start w-fit"
             >
               {project.linkText}
@@ -49,7 +56,9 @@ export default function CardScrollItem({
         </div>
         <div className="hidden md:block w-full md:w-2/5 relative h-full overflow-hidden rounded-r-3xl z-10">
           <motion.div
-            style={{ opacity: scrollYProgress, scale: imageScale }}
+            style={{
+              scale: imageScale,
+            }}
             className="w-full h-full"
           >
             <img

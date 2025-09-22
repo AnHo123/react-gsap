@@ -59,29 +59,36 @@ export default function BottomContent() {
 
     // Animation timeline for ready section
     const readySectionTL = gsap.timeline({ paused: true });
-    readySectionTL.fromTo(
-      ".ready-section h2",
-      { y: "100%", opacity: 0 },
-      { y: "0%", opacity: 1, duration: 1.2, ease: "power3.out" }
-    );
-    readySectionTL.fromTo(
-      ".ready-section p",
-      { y: "100%", opacity: 0 },
-      { y: "0%", opacity: 1, duration: 1.2, ease: "power3.out" },
-      "+=0.3"
-    );
-    readySectionTL.fromTo(
-      ".btn-cta",
-      { y: "100%", opacity: 0, scale: 0.8 },
-      {
-        y: "0%",
+    readySectionTL
+      .to([".ready-section-bg", ".ready-section-bg-anim"], {
         opacity: 1,
-        scale: 1,
-        duration: 1.2,
-        ease: "elastic.out(1, 0.3)",
-      },
-      "+=0.3"
-    );
+        duration: 1.5,
+        delay: 1,
+        ease: "power2.inOut",
+      })
+      .fromTo(
+        ".ready-section h2",
+        { y: "100%", opacity: 0 },
+        { y: "0%", opacity: 1, duration: 1.2, ease: "power3.out" }
+      )
+      .fromTo(
+        ".ready-section p",
+        { y: "100%", opacity: 0 },
+        { y: "0%", opacity: 1, duration: 1.2, ease: "power3.out" },
+        "+=0.3"
+      )
+      .fromTo(
+        ".btn-cta",
+        { y: "100%", opacity: 0, scale: 0.8 },
+        {
+          y: "0%",
+          opacity: 1,
+          scale: 1,
+          duration: 1.2,
+          ease: "elastic.out(1, 0.3)",
+        },
+        "+=0.3"
+      );
 
     // Enhanced button interactions
     function setupBtnInteractions() {
@@ -214,6 +221,7 @@ export default function BottomContent() {
       });
     };
 
+    cleanupParticles = createReadyParticles();
     // Intersection Observer to trigger animations only once when in view
     let hasAnimated = false;
     const observer = new window.IntersectionObserver(
@@ -221,7 +229,7 @@ export default function BottomContent() {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !hasAnimated) {
             hasAnimated = true;
-            cleanupParticles = createReadyParticles();
+            // Play the timeline only when the section is fully in view (threshold met)
             readySectionTL.play();
             setupBtnInteractions();
             setupParallax();
@@ -232,7 +240,7 @@ export default function BottomContent() {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.6 }
     );
 
     const readySection = document.querySelector(".ready-section");
@@ -253,6 +261,8 @@ export default function BottomContent() {
   }, []);
   return (
     <section className="ready-section" id="ready">
+      <div className="ready-section-bg"></div>
+      <div className="ready-section-bg-anim"></div>
       {/* Floating particles background */}
       <div className="ready-particles"></div>
 
@@ -270,7 +280,12 @@ export default function BottomContent() {
           </p>
         </div>
         <div className="text-mask-wrapper">
-          <a href="#contact" className="btn btn-cta masked-text">
+          <a
+            href="https://calendly.com/speak-with-simon/discovery-session"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-cta masked-text"
+          >
             Let's Get Started
           </a>
         </div>

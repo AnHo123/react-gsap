@@ -11,9 +11,11 @@
 }
 
 .bwg-main-container {
+  background: black;
   position: relative;
   width: 100%;
   overflow: hidden;
+  z-index: 100;
 }
 
 /* Section Styling */
@@ -31,7 +33,7 @@
 /* Hero Section */
 .bwg-hero {
   position: relative;
-  background-color: #000;
+  /* background-color: #000; */
   z-index: 2;
   overflow: visible;
 }
@@ -114,12 +116,6 @@
 .bwg-scroll-line {
   width: 2px;
   height: 60px;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    var(--accent-color-1),
-    transparent
-  );
   margin: 0 auto 1rem;
   position: relative;
   overflow: hidden;
@@ -156,7 +152,7 @@
   overflow: hidden;
 }
 
-.bwg-cards-section::before {
+/* .bwg-cards-section::before {
   z-index: -1;
   content: "";
   position: absolute;
@@ -179,7 +175,7 @@
   background-size: 100% 100%;
   background-repeat: no-repeat;
   animation: backgroundShift 3s ease-in-out infinite alternate;
-}
+} */
 
 @media screen and (min-width: 768px) {
   .bwg-cards-section::before {
@@ -187,21 +183,6 @@
     left: -25%;
     width: 150%;
     height: 150%;
-  }
-}
-
-@keyframes backgroundShift {
-  0% {
-    transform: scale(1) rotate(0deg);
-    opacity: 0.7;
-  }
-  50% {
-    transform: scale(1.2) rotate(10deg);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
-    opacity: 0.7;
   }
 }
 

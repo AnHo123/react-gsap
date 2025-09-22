@@ -107,7 +107,7 @@ export default function VideoService() {
   }, []);
 
   return (
-    <main ref={containerRef} className="video-container">
+    <main ref={containerRef} className="video-container" id="video-service">
       <section id="section1" className="video-section">
         <video
           className="video-bg"
@@ -138,7 +138,12 @@ export default function VideoService() {
             <span className="price">$997/Month</span>
             <span className="price-subtext">Limited spaces available.</span>
           </div>
-          <a href="#" className="line cta-button">
+          <a
+            href="https://calendly.com/speak-with-simon/discovery-session"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="line cta-button"
+          >
             LET'S GET STARTED
           </a>
         </div>
@@ -176,7 +181,12 @@ export default function VideoService() {
               Additional detail or selling point goes here.
             </span>
           </div>
-          <a href="#" className="line cta-button">
+          <a
+            href="https://calendly.com/speak-with-simon/discovery-session"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="line cta-button"
+          >
             LET'S GET STARTED
           </a>
         </div>
@@ -215,7 +225,12 @@ export default function VideoService() {
               presentation training.
             </span>
           </div>
-          <a href="#" className="line cta-button">
+          <a
+            href="https://calendly.com/speak-with-simon/discovery-session"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="line cta-button"
+          >
             LET'S GET STARTED
           </a>
         </div>

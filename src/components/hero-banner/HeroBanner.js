@@ -309,7 +309,7 @@ export default function HeroBanner() {
   }, [isTablet]);
 
   return (
-    <>
+    <section id="about">
       <div className="loading-screen">
         <div className="loading-spinner"></div>
         <span>Loading Experience...</span>
@@ -346,11 +346,16 @@ export default function HeroBanner() {
               <span className="headline-line">speech writer, and more.</span>
             </h1>
           )}
-          <a href="#promotion" className="btn btn-secondary hero-cta">
+          <a
+            href="https://calendly.com/speak-with-simon/discovery-session"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-secondary hero-cta"
+          >
             Schedule a free consultation
           </a>
         </div>
       </section>
-    </>
+    </section>
   );
 }

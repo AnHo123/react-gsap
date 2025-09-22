@@ -1,46 +1,26 @@
 /* Clients Section */
 .clients-section {
   padding: 120px 0;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: linear-gradient(180deg, #21427d 0%, #192a4b 100%);
+  /* background: linear-gradient(180deg, red 0%, blue 100%); */
   color: white;
   position: relative;
   overflow: hidden;
 }
 
-.clients-section:before {
+/* .clients-section:before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-      circle at 20% 50%,
-      rgba(102, 126, 234, 0.3) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 80% 20%,
-      rgba(118, 75, 162, 0.3) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 40% 80%,
-      rgba(147, 51, 234, 0.2) 0%,
-      transparent 50%
-    );
-  animation: backgroundShift 20s ease-in-out infinite;
-}
-
-@keyframes backgroundShift {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
+  background: linear-gradient(
+    0deg,
+    rgba(30, 60, 114, 0.1) 0%,
+    rgba(42, 82, 152, 0.1) 100%
+  );
+} */
 
 .clients-slider-container {
   margin: 20px 0;
