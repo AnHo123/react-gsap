@@ -69,12 +69,12 @@ export default function BottomContent() {
       .fromTo(
         ".ready-section h2",
         { y: "100%", opacity: 0 },
-        { y: "0%", opacity: 1, duration: 1.2, ease: "power3.out" }
+        { y: "0%", opacity: 1, duration: 1, ease: "power3.out" }
       )
       .fromTo(
         ".ready-section p",
         { y: "100%", opacity: 0 },
-        { y: "0%", opacity: 1, duration: 1.2, ease: "power3.out" },
+        { y: "0%", opacity: 1, duration: 1, ease: "power3.out" },
         "+=0.3"
       )
       .fromTo(
@@ -123,7 +123,7 @@ export default function BottomContent() {
           gsap.to(ripple, {
             scale: 6,
             opacity: 0,
-            duration: 0.8,
+            duration: 0.5,
             ease: "power2.out",
             onComplete: () => ripple.remove(),
           });
@@ -139,7 +139,6 @@ export default function BottomContent() {
         };
 
         const click = function (e) {
-          e.preventDefault();
           gsap.to(this, {
             scale: 0.95,
             duration: 0.1,

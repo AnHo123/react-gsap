@@ -86,8 +86,7 @@
 .bwgc-client-image-mobile {
   width: 100%;
   height: 200px;
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
 }
 
 .bwgc-client-image-container {
@@ -101,9 +100,7 @@
   border-radius: 15px;
   width: 100%;
   height: 300px;
-  background-size: cover;
-  background-position: center;
-  clip-path: inset(0 0 0 0);
+  object-fit: cover;
 }
 
 .bwgc-client-description {

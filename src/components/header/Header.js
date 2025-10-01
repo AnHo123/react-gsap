@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Header.css";
+import Logo from "./Logo.png";
 
 export default function Header() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -8,10 +9,7 @@ export default function Header() {
     <header class="main-header">
       <div class="container">
         <div class="logo">
-          <img
-            src="https://placehold.co/40x40/667eea/FFFFFF?text=S"
-            alt="Speak with Simon Logo"
-          />
+          <img src={Logo} alt="Speak with Simon Logo" />
           <span>SPEAK WITH SIMON</span>
         </div>
         <div class="menu" onClick={() => setShowSidebar(true)}>

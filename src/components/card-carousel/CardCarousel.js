@@ -1,6 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import "./CardCarousel.css";
+import CostIC from "./cost-of-miscommunication.png";
+import RelentionIC from "./employee-retention.png";
+import FearIC from "./public-speaking-fear.png";
+import GenZIC from "./gen-z-speaking-anxiety.png";
+import TreatmentIC from "./treatment-costs.png";
+import AvoidanceIC from "./avoidance-behavior.png";
+import CareerIC from "./career-advancement.png";
+import EmployersIC from "./employer-challaneges.png";
+import PromotionIC from "./promotion-advantage.png";
+import StorytellingIC from "./storytelling.png";
+import SkillsIC from "./skills-shortage.png";
 
 const visiblePositions = [-2, -1, 0, 1, 2];
 const baseDistance = 400;
@@ -8,7 +19,7 @@ const baseDistance = 400;
 // src/data/cardData.ts
 const cardsData = [
   {
-    icon: "https://placehold.co/30x30/FFFFFF/FFFFFF?text=💸",
+    icon: CostIC,
     alt: "Cost",
     title: "The Cost of Miscommunication",
     description:
@@ -16,7 +27,7 @@ const cardsData = [
     stats: "$1.2T Annual Loss",
   },
   {
-    icon: "https://placehold.co/30x30/FFFFFF/FFFFFF?text=👥",
+    icon: RelentionIC,
     alt: "Retention",
     title: "Employee Retention",
     description:
@@ -24,7 +35,7 @@ const cardsData = [
     stats: "4.5x Higher Retention",
   },
   {
-    icon: "https://placehold.co/30x30/FFFFFF/FFFFFF?text=😰",
+    icon: FearIC,
     alt: "Fear",
     title: "Public Speaking Fear",
     description:
@@ -32,7 +43,7 @@ const cardsData = [
     stats: "86% Experience Fear",
   },
   {
-    icon: "https://placehold.co/30x30/FFFFFF/FFFFFF?text=📱",
+    icon: GenZIC,
     alt: "Gen-Z",
     title: "Gen-Z Speaking Anxiety",
     description:
@@ -40,7 +51,7 @@ const cardsData = [
     stats: "74% of Gen-Z Affected",
   },
   {
-    icon: "https://placehold.co/30x30/FFFFFF/FFFFFF?text=💊",
+    icon: TreatmentIC,
     alt: "Treatment",
     title: "Treatment Costs",
     description:
@@ -48,7 +59,7 @@ const cardsData = [
     stats: "$42-46B Treatment Costs",
   },
   {
-    icon: "https://placehold.co/30x30/FFFFFF/FFFFFF?text=🚫",
+    icon: AvoidanceIC,
     alt: "Avoidance",
     title: "Avoidance Behavior",
     description:
@@ -56,7 +67,7 @@ const cardsData = [
     stats: "80% Avoid Speaking",
   },
   {
-    icon: "https://placehold.co/30x30/FFFFFF/FFFFFF?text=📈",
+    icon: CareerIC,
     alt: "Career",
     title: "Career Impact",
     description:
@@ -64,7 +75,7 @@ const cardsData = [
     stats: "45% Reject Promotions",
   },
   {
-    icon: "https://placehold.co/30x30/FFFFFF/FFFFFF?text=🏢",
+    icon: EmployersIC,
     alt: "Employers",
     title: "Employer Challenges",
     description:
@@ -72,7 +83,7 @@ const cardsData = [
     stats: "90% Face Hiring Issues",
   },
   {
-    icon: "https://placehold.co/30x30/FFFFFF/FFFFFF?text=🎯",
+    icon: PromotionIC,
     alt: "Promotion",
     title: "Promotion Advantage",
     description:
@@ -80,7 +91,7 @@ const cardsData = [
     stats: "70% More Promotions",
   },
   {
-    icon: "https://placehold.co/30x30/FFFFFF/FFFFFF?text=📖",
+    icon: StorytellingIC,
     alt: "Storytelling",
     title: "Storytelling Power",
     description:
@@ -88,7 +99,7 @@ const cardsData = [
     stats: "22x Better Retention",
   },
   {
-    icon: "https://placehold.co/30x30/FFFFFF/FFFFFF?text=🎓",
+    icon: SkillsIC,
     alt: "Skills",
     title: "Skill Shortage",
     description:

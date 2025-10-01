@@ -1,5 +1,5 @@
 import "./Promo.css";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Video from "./Promo.mp4";
@@ -7,7 +7,9 @@ import Video from "./Promo.mp4";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Promo() {
+  const [showPlayButton, setShowPlayButton] = useState(true);
   const wrapperRef = useRef(null);
+  const videoRef = useRef(null);
   useEffect(() => {
     const animate = () => {
       // Section reveals with advanced animations
@@ -84,17 +86,26 @@ export default function Promo() {
       </div>
       <div class="promotion-video-wrapper" ref={wrapperRef}>
         <video
+          ref={videoRef}
           className="video-popup-video"
           width="100%"
           controls
-          autoPlay
-          muted
-          loop
-          playsInline
         >
           <source src={Video} type="video/mp4" />
           Your browser does not support HTML video.
         </video>
+
+        {showPlayButton && (
+          <button
+            className="promotion-video-play-button"
+            onClick={() => {
+              videoRef.current.play();
+              setShowPlayButton(false);
+            }}
+          >
+            <div className="promotion-video-play-icon"></div>
+          </button>
+        )}
       </div>
     </section>
   );
