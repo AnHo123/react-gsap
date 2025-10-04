@@ -3,89 +3,90 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ClientCarouselStatItem from "./ClientCarouselStatItem";
+import LogoATAndT from "./logo-AT&T.png";
+import LogoFacebook from "./logo-facebook.png";
+import LogoHoneywell from "./logo-Honeywell.png";
+import LogoItserve from "./logo-itserve.png";
+import LogoMCkinsey from "./logo-mckinsey.png";
+import LogoMit from "./logo-mit.png";
+import LogoTrinket from "./logo-trinket.svg";
+import LogoVia from "./logo-via.png";
 
 const mainClients = [
   {
-    src: "https://placehold.co/200x80/667eea/FFFFFF?text=GOOGLE",
-    alt: "Google",
+    src: LogoATAndT,
+    alt: "AT & T",
   },
   {
-    src: "https://placehold.co/200x80/764ba2/FFFFFF?text=MICROSOFT",
-    alt: "Microsoft",
+    src: LogoFacebook,
+    alt: "Facebook",
   },
   {
-    src: "https://placehold.co/200x80/667eea/FFFFFF?text=APPLE",
-    alt: "Apple",
+    src: LogoHoneywell,
+    alt: "Honeywell",
   },
   {
-    src: "https://placehold.co/200x80/764ba2/FFFFFF?text=TESLA",
-    alt: "Tesla",
+    src: LogoItserve,
+    alt: "Itserve",
   },
   {
-    src: "https://placehold.co/200x80/667eea/FFFFFF?text=AMAZON",
-    alt: "Amazon",
-  },
-  { src: "https://placehold.co/200x80/764ba2/FFFFFF?text=META", alt: "Meta" },
-  {
-    src: "https://placehold.co/200x80/667eea/FFFFFF?text=NETFLIX",
-    alt: "Netflix",
+    src: LogoATAndT,
+    alt: "AT & T",
   },
   {
-    src: "https://placehold.co/200x80/764ba2/FFFFFF?text=SPOTIFY",
-    alt: "Spotify",
+    src: LogoFacebook,
+    alt: "Facebook",
   },
   {
-    src: "https://placehold.co/200x80/667eea/FFFFFF?text=AIRBNB",
-    alt: "Airbnb",
+    src: LogoHoneywell,
+    alt: "Honeywell",
   },
-  { src: "https://placehold.co/200x80/764ba2/FFFFFF?text=UBER", alt: "Uber" },
+  {
+    src: LogoItserve,
+    alt: "Itserve",
+  },
 ];
 
 const reverseClients = [
   {
-    src: "https://placehold.co/200x80/9333ea/FFFFFF?text=SALESFORCE",
-    alt: "Salesforce",
+    src: LogoMCkinsey,
+    alt: "McKinsey",
   },
   {
-    src: "https://placehold.co/200x80/ec4899/FFFFFF?text=ADOBE",
-    alt: "Adobe",
+    src: LogoMit,
+    alt: "MIT",
   },
   {
-    src: "https://placehold.co/200x80/9333ea/FFFFFF?text=NVIDIA",
-    alt: "Nvidia",
-  },
-  { src: "https://placehold.co/200x80/ec4899/FFFFFF?text=ZOOM", alt: "Zoom" },
-  {
-    src: "https://placehold.co/200x80/9333ea/FFFFFF?text=SLACK",
-    alt: "Slack",
+    src: LogoTrinket,
+    alt: "Trinket",
   },
   {
-    src: "https://placehold.co/200x80/ec4899/FFFFFF?text=DROPBOX",
-    alt: "Dropbox",
+    src: LogoVia,
+    alt: "Via",
   },
   {
-    src: "https://placehold.co/200x80/9333ea/FFFFFF?text=SHOPIFY",
-    alt: "Shopify",
+    src: LogoMCkinsey,
+    alt: "McKinsey",
   },
   {
-    src: "https://placehold.co/200x80/ec4899/FFFFFF?text=STRIPE",
-    alt: "Stripe",
+    src: LogoMit,
+    alt: "MIT",
   },
   {
-    src: "https://placehold.co/200x80/9333ea/FFFFFF?text=TWILIO",
-    alt: "Twilio",
+    src: LogoTrinket,
+    alt: "Trinket",
   },
   {
-    src: "https://placehold.co/200x80/ec4899/FFFFFF?text=FIGMA",
-    alt: "Figma",
+    src: LogoVia,
+    alt: "Via",
   },
 ];
 
 const stats = [
-  { target: 500, label: "Leaders Coached" },
-  { target: 50, label: "Fortune 500 Companies" },
-  { target: 25, label: "TEDx Talks Delivered" },
-  { target: 98, label: "% Success Rate" },
+  { target: 20, label: "Years of public speaking experience", unit: "+" },
+  { target: 200, label: "Speeches Written", unit: "+" },
+  { target: 18, label: "Ivy MBA Applications Secured" },
+  { target: 100, label: "Satisfaction Guarantee", unit: "%" },
 ];
 
 gsap.registerPlugin(ScrollTrigger);
@@ -102,14 +103,28 @@ export default function ClientCarousel() {
     function animateSlider(slider, direction = 1) {
       const slides = slider.children;
       if (!slides.length) return null;
-      const slideWidth = slides[0].offsetWidth + 60;
-      const totalWidth = (slideWidth * slides.length) / 2;
+      // Calculate total width dynamically for variable-width slides
+      let totalWidth = 0;
+      for (let i = 0; i < slides.length; i++) {
+        totalWidth += slides[i].offsetWidth + 60; // 60px gap
+      }
+      totalWidth = totalWidth / 2;
+      // Use explicit pixel values for transform
       gsap.set(slider, { x: direction === 1 ? 0 : -totalWidth });
       return gsap.to(slider, {
         x: direction === 1 ? -totalWidth : 0,
-        duration: 40,
+        duration: 30,
         ease: "none",
         repeat: -1,
+        autoRound: false, // Prevent Safari rounding issues
+        force3D: true, // Enable hardware acceleration for Safari
+        onUpdate: () => {
+          // Force transform to use px
+          slider.style.transform = `translateX(${gsap.getProperty(
+            slider,
+            "x"
+          )}px)`;
+        },
         onRepeat: () => {
           gsap.set(slider, { x: direction === 1 ? 0 : -totalWidth });
         },
@@ -177,8 +192,9 @@ export default function ClientCarousel() {
               opacity: 0.9,
             }}
           >
-            From Fortune 500 companies to innovative startups, world-class
-            organizations choose Simon for transformational speaking coaching.
+            From senior executives to aspiring changemakers, professionals from
+            some of the world’s top institutions choose Speak With Simon’s
+            transformative speaking coaching.
           </p>
         </div>
 
@@ -221,6 +237,7 @@ export default function ClientCarousel() {
               label={stat.label}
               target={stat.target}
               key={stat.label + idx}
+              unit={stat.unit}
             />
           ))}
         </div>

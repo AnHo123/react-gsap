@@ -97,16 +97,17 @@
   width: 3rem;
   height: 3rem;
   cursor: pointer;
-  background-color: #2563eb;
+  background: var(--accent-gradient);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 
   @media (min-width: 768px) {
-    width: 4rem;
-    height: 4rem;
+    width: 4.5rem;
+    height: 4.5rem;
   }
 
   &:hover {
@@ -121,4 +122,9 @@
   border-width: 12px 0 12px 20px; /* Creates a triangle */
   border-color: transparent transparent transparent white;
   margin-left: 4px; /* Nudge to center */
+
+  @media (min-width: 768px) {
+    border-width: 14px 0 14px 24px;
+    margin-left: 6px;
+  }
 }

@@ -2,6 +2,7 @@ import "./BeforeWeBegin.css";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useInView } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 function splitTextIntoLines(selector) {
   document.querySelectorAll(selector).forEach((p) => {
     const text = p.innerHTML;
-    p.innerHTML = `<span class="line-inner">${text}</span>`;
+    p.innerHTML = `<span className="line-inner">${text}</span>`;
   });
 }
 
@@ -21,7 +22,7 @@ function splitTextIntoChars(selector) {
       .split(" ")
       .map(
         (char) =>
-          `<span class="char" style="display:inline-block;">${
+          `<span className="char" style="display:inline-block;">${
             char.trim() === "" ? "&nbsp;" : char
           }</span><span> </span>`
       )
@@ -33,15 +34,129 @@ function splitTextIntoChars(selector) {
 
 export default function BeforeWeBegin() {
   const mainRef = useRef(null);
+  const isInView = useInView(mainRef, { amount: 0.15, once: true });
 
   useEffect(() => {
     function initPageAnimations() {
       // Split text for animations
       splitTextIntoLines(".bwg-client-text p");
 
-      // --- HERO SECTION ANIMATION ---
+      // --- HERO SECTION ---
       const heroTitleChars = splitTextIntoChars(".bwg-hero-title");
       const heroSubtitleChars = splitTextIntoChars(".bwg-hero-subtitle");
+
+      // Detect mobile device
+      const isMobile = window.innerWidth < 768;
+
+      if (isMobile && isInView) {
+        const timeline = gsap.timeline();
+        // Simple fade-in animation for mobile
+        timeline
+          .fromTo(".bwg-hero", { opacity: 0 }, { opacity: 1, duration: 0.5 })
+          .fromTo(".bwg-hero", { opacity: 0 }, { opacity: 1, duration: 0.5 })
+          .fromTo(
+            ".bwg-hero-title",
+            {
+              y: 20,
+              opacity: 0,
+            },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1,
+              ease: "power3.out",
+            }
+          )
+          .fromTo(
+            ".bwg-hero-subtitle",
+            {
+              y: 20,
+              opacity: 0,
+            },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1,
+              ease: "power3.out",
+            },
+            "<0.1"
+          )
+          .to(
+            ".bwg-main-container",
+            {
+              backgroundColor: "transparent",
+              duration: 0.5,
+              ease: "power2.inOut",
+            },
+            "<"
+          )
+          .from(".bwg-cards-container .bwg-section-title", {
+            opacity: 0,
+            y: 50,
+          })
+          .from(
+            ".bwg-card",
+            {
+              opacity: 0,
+              y: 100,
+              rotationX: -45,
+              stagger: 0.2,
+              ease: "power3.out",
+            },
+            "<"
+          )
+          .to(
+            ".bwg-card .bwg-x-mark",
+            {
+              opacity: 1,
+              scale: 1,
+              rotation: 0,
+              duration: 0.5,
+              ease: "back.out(1.7)",
+              stagger: 0.15,
+            },
+            ">0.5"
+          )
+          .to(".bwg-card", { filter: "brightness(0.4)", duration: 0.5 }, "<")
+          .from(
+            ".bwg-rejection-text",
+            { opacity: 0, y: 20, rotationX: -90, stagger: 0.02 },
+            ">0.25"
+          )
+          .to(
+            [".bwg-cards-grid", ".bwg-cards-container .bwg-section-title"],
+            { opacity: 0, y: -50, duration: 0.5, ease: "power2.in" },
+            ">1"
+          )
+          .to(
+            ".bwg-rejection-text-wrapper",
+            { y: "-=300", duration: 1, ease: "power2.inOut" },
+            "<"
+          )
+          .to(
+            ".bwg-rejection-text",
+            {
+              fontSize: "clamp(1.5rem, 5vw, 4rem)",
+              duration: 1,
+              ease: "power2.inOut",
+            },
+            "<"
+          )
+          .to(".bwg-new-content", { opacity: 1, duration: 0.5 }, ">-0.25")
+          .from(".bwg-new-content-text", {
+            opacity: 0,
+            y: 20,
+            stagger: 0.015,
+          })
+          .to(".bwg-main-container", {
+            backgroundColor: "#000000",
+            duration: 1,
+            ease: "power2.inOut",
+          });
+        return;
+      }
+
+      gsap.fromTo(".bwg-hero", { opacity: 0 }, { opacity: 1, duration: 0.5 });
 
       gsap
         .timeline({
@@ -50,7 +165,7 @@ export default function BeforeWeBegin() {
             start: "top top",
             end: "bottom top",
             scrub: 1,
-            pin: true,
+            pin: window.innerWidth > 768, // disable pin on mobile
           },
         })
         .from(heroTitleChars, {
@@ -91,11 +206,10 @@ export default function BeforeWeBegin() {
           "<"
         );
 
-      // --- CARDS SECTION ANIMATION ---
+      // --- CARDS SECTION ---
       const rejectionChars = splitTextIntoChars(".bwg-rejection-text");
       const newContentChars = splitTextIntoChars(".bwg-new-content-text");
 
-      // Only run animation when cards section is in view
       let cardsTimeline;
       ScrollTrigger.create({
         trigger: ".bwg-cards-section",
@@ -107,9 +221,8 @@ export default function BeforeWeBegin() {
               trigger: ".bwg-cards-section",
               start: "top top",
               end: "bottom top",
-              // end: "+=350%",
               scrub: 1,
-              pin: true,
+              pin: window.innerWidth > 768, // disable pin on mobile
             },
           });
 
@@ -179,15 +292,20 @@ export default function BeforeWeBegin() {
             });
         },
       });
+
+      // force refresh for mobile viewport issues
+      ScrollTrigger.refresh();
+      window.addEventListener("resize", ScrollTrigger.refresh);
     }
 
     initPageAnimations();
+
     // Cleanup
     return () => {
       ScrollTrigger.getAll().forEach((st) => st.kill());
-      gsap.globalTimeline.clear();
+      window.removeEventListener("resize", ScrollTrigger.refresh);
     };
-  }, []);
+  }, [isInView]);
 
   return (
     <section className="bwg-main-container" ref={mainRef}>

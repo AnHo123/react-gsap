@@ -130,12 +130,11 @@ export default function BeforeWeBeginCard() {
                       <p key={i}>{text}</p>
                     ))}
                   </div>
-                  <div
+                  <img
                     className="bwgc-client-image-mobile"
-                    style={{
-                      backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${client.image})`,
-                    }}
-                  ></div>
+                    src={client.image}
+                    alt={client.title}
+                  ></img>
                 </motion.div>
               </li>
             ))}

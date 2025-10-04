@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ClientCarouselStatItem({ label, target }) {
+export default function ClientCarouselStatItem({ label, target, unit }) {
   const ref = useRef(null);
   const controls = useAnimation();
   const inView = useInView(ref, { once: true, amount: 0.2 });
@@ -50,6 +50,7 @@ export default function ClientCarouselStatItem({ label, target }) {
     >
       <div className="stat-number" data-target={target}>
         {value}
+        {unit}
       </div>
       <div className="stat-label">{label}</div>
     </motion.div>

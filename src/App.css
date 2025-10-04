@@ -23,6 +23,11 @@ body {
   overflow-x: hidden;
 }
 
+/* .app-root {
+  width: 100%;
+  overflow-x: hidden;
+} */
+
 .bwg-main-container-wrapper {
   position: relative;
   width: 100%;
@@ -46,8 +51,14 @@ body {
     );
   background: var(--accent-gradient);
   /* background: red; */
-  animation: backgroundShift 3s ease-in-out infinite;
   z-index: -1;
+  animation: backgroundShift 3s ease-in-out infinite;
+}
+
+@media screen and (max-width: 768px) {
+  .bwg-main-container-wrapper-bg {
+    animation: none;
+  }
 }
 
 @keyframes backgroundShift {
@@ -66,6 +77,8 @@ body {
 }
 
 .end-content-wrapper {
+  width: 100%;
+  overflow-x: hidden;
   position: relative;
   z-index: 9999999;
   background: #0d0d1a;

@@ -322,7 +322,7 @@ const CardCarousel = () => {
         </h2>
         <div className="stage"></div>
         <div className="carousel-container">
-          <div class="carousel" id="carousel">
+          <div className="carousel" id="carousel">
             {cardsData.map((card, index) => (
               <div
                 key={index}

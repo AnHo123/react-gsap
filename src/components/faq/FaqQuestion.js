@@ -1,20 +1,20 @@
 import "./Faq.css";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useInView, motion, inView } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import { useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
-function splitTextIntoWords(text) {
-  return text.split(" ").map((word, i) => (
-    <span className="word" key={i}>
-      {word.split("").map((char, j) => (
-        <span className="char" key={j}>
-          {char}
-        </span>
-      ))}{" "}
-    </span>
-  ));
-}
+// function splitTextIntoWords(text) {
+//   return text.split(" ").map((word, i) => (
+//     <span className="word" key={i}>
+//       {word.split("").map((char, j) => (
+//         <span className="char" key={j}>
+//           {char}
+//         </span>
+//       ))}{" "}
+//     </span>
+//   ));
+// }
 
 gsap.registerPlugin(ScrollTrigger);
 export default function FaqQuestion({ item, idx }) {
@@ -36,7 +36,6 @@ export default function FaqQuestion({ item, idx }) {
       stagger: 0.15,
       ease: "power3.out",
       onComplete: () => {
-        console.log("Animation completed for FAQ item:", idx);
         const questionText = questionTextRef.current;
         if (questionText) {
           gsap.fromTo(
@@ -99,7 +98,7 @@ export default function FaqQuestion({ item, idx }) {
     >
       <div className="faq-question" onClick={handleAccordion}>
         <span className="faq-question-text" ref={questionTextRef}>
-          {splitTextIntoWords(item.question)}
+          {item.question}
         </span>
         <span className="faq-icon">+</span>
       </div>

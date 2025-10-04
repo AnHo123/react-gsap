@@ -1,15 +1,20 @@
 import "./Promo.css";
 import { useRef, useEffect, useState } from "react";
+import { useInView } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Video from "./Promo.mp4";
+import VideoThumbnail from "./video-thumbnail.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Promo() {
   const [showPlayButton, setShowPlayButton] = useState(true);
+  const rootRef = useRef(null);
   const wrapperRef = useRef(null);
   const videoRef = useRef(null);
+  const isInView = useInView(rootRef, { amount: 0.5, once: true });
+
   useEffect(() => {
     const animate = () => {
       // Section reveals with advanced animations
@@ -44,6 +49,7 @@ export default function Promo() {
         );
       });
 
+      // Only run animation when rootRef is in view
       if (wrapperRef.current) {
         gsap.fromTo(
           wrapperRef.current,
@@ -65,31 +71,26 @@ export default function Promo() {
 
     // Run on mount
     animate();
-
-    // Run on resize
-    window.addEventListener("resize", animate);
-
-    // Cleanup
-    return () => window.removeEventListener("resize", animate);
-  }, []);
+  }, [isInView]);
 
   return (
-    <section class="promotion-section" id="promotion">
-      <div class="container">
-        <h2 class="promo-title section-reveal">
+    <section ref={rootRef} className="promotion-section" id="promotion">
+      <div className="container">
+        <h2 className="promo-title section-reveal">
           Your Next Promotion, Pitch, or TEDx Talk Begins Here.
         </h2>
-        <p class="section-reveal">
+        <p className="section-reveal">
           Speak with presence, lead with clarity, and command the room—with
           1-on-1 training tailored to your unique needs, goals, and challenges.
         </p>
       </div>
-      <div class="promotion-video-wrapper" ref={wrapperRef}>
+      <div className="promotion-video-wrapper" ref={wrapperRef}>
         <video
           ref={videoRef}
           className="video-popup-video"
           width="100%"
           controls
+          poster={VideoThumbnail}
         >
           <source src={Video} type="video/mp4" />
           Your browser does not support HTML video.

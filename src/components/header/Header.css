@@ -1,11 +1,11 @@
-.container {
+.main-page-header-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
 /* Enhanced Header with glassmorphism */
-.main-header {
+.main-page-header {
   position: fixed;
   width: 100%;
   z-index: 1000;
@@ -16,12 +16,12 @@
   transition: all 0.3s ease;
 }
 
-.main-header.scrolled {
+.main-page-header.scrolled {
   background: rgba(0, 0, 0, 0.9);
   backdrop-filter: blur(20px);
 }
 
-.main-header .container {
+.main-page-header .main-page-header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;

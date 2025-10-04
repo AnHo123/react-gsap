@@ -33,7 +33,6 @@
 /* Hero Section */
 .bwg-hero {
   position: relative;
-  /* background-color: #000; */
   z-index: 2;
   overflow: visible;
 }
@@ -52,7 +51,6 @@
       var(--accent-color-2) 0%,
       transparent 30%
     );
-  animation: backgroundShift 3s ease-in-out infinite;
   z-index: -1;
 }
 
@@ -92,6 +90,9 @@
 }
 
 @media screen and (min-width: 768px) {
+  .bwg-hero {
+    opacity: 0;
+  }
   .bwg-hero-subtitle {
     font-size: 1.4rem;
   }
@@ -151,31 +152,6 @@
   z-index: 2;
   overflow: hidden;
 }
-
-/* .bwg-cards-section::before {
-  z-index: -1;
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -50%;
-  width: 180%;
-  height: 150%;
-  background: radial-gradient(
-      circle at 20% 50%,
-      var(--accent-color-1) 0%,
-      var(--accent-color-1) 40%,
-      transparent 60%
-    ),
-    radial-gradient(
-      circle at 80% 20%,
-      var(--accent-color-2) 0%,
-      var(--accent-color-2) 40%,
-      transparent 60%
-    );
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  animation: backgroundShift 3s ease-in-out infinite alternate;
-} */
 
 @media screen and (min-width: 768px) {
   .bwg-cards-section::before {
