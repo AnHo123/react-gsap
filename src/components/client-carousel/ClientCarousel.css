@@ -177,6 +177,7 @@
   }
 
   .clients-slider {
+    will-change: transform;
     padding: 30px 0;
   }
 

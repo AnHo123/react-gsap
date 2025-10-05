@@ -4,7 +4,7 @@ import { useInView } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Video from "./Promo.mp4";
-import VideoThumbnail from "./video-thumbnail.webp";
+import VideoThumbnail from "./video-thumbnail.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,59 +18,20 @@ export default function Promo() {
   useEffect(() => {
     const animate = () => {
       // Section reveals with advanced animations
-      gsap.utils.toArray(".section-reveal").forEach((section) => {
-        if (!section) return;
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none none", // Only play once
-            once: true, // Not strictly needed, but for clarity
-          },
-        });
-
-        tl.fromTo(
-          section,
-          {
-            opacity: 0,
-            y: 100,
-            scale: 0.8,
-            rotateX: 15,
-          },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            rotateX: 0,
-            duration: 1.2,
-            ease: "power3.out",
-          }
-        );
-      });
-
-      // Only run animation when rootRef is in view
-      if (wrapperRef.current) {
-        gsap.fromTo(
-          wrapperRef.current,
-          { opacity: 0, y: 200 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: wrapperRef.current,
-              start: "top 100%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
-      }
+      gsap.fromTo(
+        ".section-reveal",
+        { opacity: 0, y: 80 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          stagger: { amount: 0.5, from: "start" },
+        }
+      );
     };
 
-    // Run on mount
-    animate();
+    if (isInView) animate();
   }, [isInView]);
 
   return (
@@ -84,7 +45,7 @@ export default function Promo() {
           1-on-1 training tailored to your unique needs, goals, and challenges.
         </p>
       </div>
-      <div className="promotion-video-wrapper" ref={wrapperRef}>
+      <div className="promotion-video-wrapper section-reveal" ref={wrapperRef}>
         <video
           ref={videoRef}
           className="video-popup-video"

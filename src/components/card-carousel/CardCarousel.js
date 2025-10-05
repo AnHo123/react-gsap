@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import "./CardCarousel.css";
 import CostIC from "./cost-of-miscommunication.png";
@@ -12,6 +12,7 @@ import EmployersIC from "./employer-challaneges.png";
 import PromotionIC from "./promotion-advantage.png";
 import StorytellingIC from "./storytelling.png";
 import SkillsIC from "./skills-shortage.png";
+import { useInView } from "framer-motion";
 
 const visiblePositions = [-2, -1, 0, 1, 2];
 const baseDistance = 400;
@@ -112,9 +113,12 @@ const totalCards = cardsData.length;
 
 const CardCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const rootRef = useRef(null);
   const cardsRef = useRef([]);
   const indicatorsRef = useRef([]);
   const stageContainerRef = useRef(null);
+  const [pause, setPause] = useState(true);
+  const isInView = useInView(rootRef, { amount: 0.2, once: true });
 
   const getRelativePos = (index) => {
     let relativePos = index - currentIndex;
@@ -184,13 +188,47 @@ const CardCarousel = () => {
   };
 
   const rotate = (direction) => {
-    const newIndex = (currentIndex + direction + totalCards) % totalCards;
+    let newIndex;
+    if (currentIndex === -1) {
+      newIndex = direction === 1 ? 0 : totalCards - 1;
+    } else {
+      newIndex = (currentIndex + direction + totalCards) % totalCards;
+    }
     setCurrentIndex(newIndex);
   };
 
   useEffect(() => {
     updateCarousel();
   }, [currentIndex]);
+
+  useEffect(() => {
+    if (isInView) setPause(false);
+  }, [isInView]);
+
+  // --- AUTOPLAY ---
+  useEffect(() => {
+    let autoplay = setInterval(() => {
+      rotate(1);
+    }, 6000);
+
+    const pauseAutoplay = () => clearInterval(autoplay);
+    const resumeAutoplay = () => {
+      clearInterval(autoplay);
+      autoplay = setInterval(() => {
+        rotate(1);
+      }, 6000);
+    };
+
+    if (pause) {
+      pauseAutoplay();
+    } else {
+      resumeAutoplay();
+    }
+
+    return () => {
+      clearInterval(autoplay);
+    };
+  }, [currentIndex, pause]);
 
   useEffect(() => {
     const title = document.querySelector(".section-title");
@@ -276,44 +314,6 @@ const CardCarousel = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const container = stageContainerRef.current;
-    if (!container) return;
-
-    const handleMouseEnter = () => {};
-    const handleMouseLeave = () => {};
-
-    container.addEventListener("mouseenter", handleMouseEnter);
-    container.addEventListener("mouseleave", handleMouseLeave);
-
-    const handleKey = (e) => {
-      if (e.key === "ArrowLeft") rotate(-1);
-      if (e.key === "ArrowRight") rotate(1);
-    };
-
-    window.addEventListener("keydown", handleKey);
-
-    let startX = 0,
-      startY = 0;
-    document.addEventListener("touchstart", (e) => {
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-    });
-    document.addEventListener("touchend", (e) => {
-      const diffX = e.changedTouches[0].clientX - startX;
-      const diffY = e.changedTouches[0].clientY - startY;
-      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 30) {
-        rotate(diffX > 0 ? -1 : 1);
-      }
-    });
-
-    return () => {
-      container.removeEventListener("mouseenter", handleMouseEnter);
-      container.removeEventListener("mouseleave", handleMouseLeave);
-      window.removeEventListener("keydown", handleKey);
-    };
-  }, []);
-
   return (
     <div className="card-carousel-section">
       <div className="stage-container" ref={stageContainerRef}>
@@ -321,13 +321,15 @@ const CardCarousel = () => {
           Investing in public speaking has never been more valuable
         </h2>
         <div className="stage"></div>
-        <div className="carousel-container">
+        <div className="carousel-container" ref={rootRef}>
           <div className="carousel" id="carousel">
             {cardsData.map((card, index) => (
               <div
                 key={index}
                 className="card-carousel"
                 ref={(el) => (cardsRef.current[index] = el)}
+                onMouseEnter={() => setPause(true)}
+                onMouseLeave={() => setPause(false)}
               >
                 <div className="card-carousel-content">
                   <div className="card-icon">

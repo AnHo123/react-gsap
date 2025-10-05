@@ -1,5 +1,5 @@
 import "./ClientCarousel.css";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ClientCarouselStatItem from "./ClientCarouselStatItem";
@@ -11,6 +11,7 @@ import LogoMCkinsey from "./logo-mckinsey.png";
 import LogoMit from "./logo-mit.png";
 import LogoTrinket from "./logo-trinket.svg";
 import LogoVia from "./logo-via.png";
+import { useInView } from "framer-motion";
 
 const mainClients = [
   {
@@ -92,6 +93,8 @@ const stats = [
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ClientCarousel() {
+  const rootRef = useRef(null);
+  const isInView = useInView(rootRef, { amount: 0.2, once: true });
   const slider1Ref = useRef(null);
   const slider2Ref = useRef(null);
 
@@ -116,29 +119,16 @@ export default function ClientCarousel() {
         duration: 30,
         ease: "none",
         repeat: -1,
-        autoRound: false, // Prevent Safari rounding issues
-        force3D: true, // Enable hardware acceleration for Safari
-        onUpdate: () => {
-          // Force transform to use px
-          slider.style.transform = `translateX(${gsap.getProperty(
-            slider,
-            "x"
-          )}px)`;
-        },
         onRepeat: () => {
           gsap.set(slider, { x: direction === 1 ? 0 : -totalWidth });
         },
       });
     }
 
-    // Animate entrance and start auto-scroll
-    ScrollTrigger.create({
-      trigger: ".clients-section",
-      start: "top 60%",
-      once: true,
-      onEnter: () => {
-        const tl = gsap.timeline();
-        tl.fromTo(
+    if (isInView) {
+      const timeline = gsap.timeline();
+      timeline
+        .fromTo(
           ".clients-header",
           { opacity: 0, y: 80 },
           {
@@ -148,7 +138,8 @@ export default function ClientCarousel() {
             ease: "power2.out",
             stagger: { amount: 0.5, from: "start" },
           }
-        ).fromTo(
+        )
+        .fromTo(
           [slider1, slider2],
           { y: 100, opacity: 0 },
           {
@@ -163,12 +154,11 @@ export default function ClientCarousel() {
             },
           }
         );
-      },
-    });
-  }, []);
+    }
+  }, [isInView]);
 
   return (
-    <section className="clients-section" id="clients">
+    <section className="clients-section" id="clients" ref={rootRef}>
       <div className="container">
         <div>
           <h2
@@ -183,13 +173,12 @@ export default function ClientCarousel() {
             Trusted by Industry Leaders
           </h2>
           <p
-            className="clients-header"
+            className="clients-header clients-subtitle"
             style={{
               textAlign: "center",
               fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
               maxWidth: 800,
               margin: "0 auto",
-              opacity: 0.9,
             }}
           >
             From senior executives to aspiring changemakers, professionals from

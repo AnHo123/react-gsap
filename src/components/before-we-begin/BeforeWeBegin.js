@@ -305,7 +305,7 @@ export default function BeforeWeBegin() {
       ScrollTrigger.getAll().forEach((st) => st.kill());
       window.removeEventListener("resize", ScrollTrigger.refresh);
     };
-  }, [isInView]);
+  }, []);
 
   return (
     <section className="bwg-main-container" ref={mainRef}>
