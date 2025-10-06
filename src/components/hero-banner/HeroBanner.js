@@ -44,7 +44,6 @@ export default function HeroBanner() {
   const startHeroAnimation = () => {
     // Hero section elements
     const heroVideo = document.querySelector(".hero-video");
-    const heroVideoOverlay = document.querySelector(".hero-video-overlay");
     const headlineLines = document.querySelectorAll(
       ".hero-headline .headline-line"
     );
@@ -54,15 +53,9 @@ export default function HeroBanner() {
     const heroHeadline = document.querySelector(".hero-headline");
 
     gsap.set(heroCta, { opacity: 0, y: 30, scale: 0.8 });
-    gsap.set(heroVideoOverlay, { opacity: 0 });
     gsap.set(heroHeadline, { opacity: 1 });
 
-    if (
-      !heroVideo ||
-      !heroVideoOverlay ||
-      headlineLines.length === 0 ||
-      !heroCta
-    ) {
+    if (!heroVideo || headlineLines.length === 0 || !heroCta) {
       console.error("Essential elements not found");
       return;
     }
@@ -119,17 +112,6 @@ export default function HeroBanner() {
         ease: "elastic.out(1, 0.5)",
       },
       "+=0.5"
-    );
-
-    // Overlay with gradient animation
-    tl.to(
-      heroVideoOverlay,
-      {
-        opacity: 1,
-        duration: 2,
-        ease: "power2.inOut",
-      },
-      "<"
     );
   };
 

@@ -209,14 +209,14 @@ const CardCarousel = () => {
   useEffect(() => {
     let autoplay = setInterval(() => {
       rotate(1);
-    }, 6000);
+    }, 3000);
 
     const pauseAutoplay = () => clearInterval(autoplay);
     const resumeAutoplay = () => {
       clearInterval(autoplay);
       autoplay = setInterval(() => {
         rotate(1);
-      }, 6000);
+      }, 3000);
     };
 
     if (pause) {
