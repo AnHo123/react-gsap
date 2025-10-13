@@ -11,13 +11,6 @@ export default function VideoService() {
   const debounceRef = useRef(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    console.log(
-      "ScrollTrigger loaded:",
-      ScrollTrigger.version,
-      containerRef.current
-    );
-
     if (!containerRef.current) return;
     const videos = gsap.utils.toArray(".video-bg");
     videos.forEach((video) => {
