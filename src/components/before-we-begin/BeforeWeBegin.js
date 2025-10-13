@@ -1,7 +1,7 @@
 import "./BeforeWeBegin.css";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollTrigger } from "gsap/all";
 import { useInView } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);

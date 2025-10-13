@@ -1,8 +1,7 @@
 import "./VideoService.css";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { ScrollTrigger, ScrollToPlugin } from "gsap/all";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -12,6 +11,14 @@ export default function VideoService() {
   const debounceRef = useRef(null);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    console.log(
+      "ScrollTrigger loaded:",
+      ScrollTrigger.version,
+      containerRef.current
+    );
+
+    if (!containerRef.current) return;
     const videos = gsap.utils.toArray(".video-bg");
     videos.forEach((video) => {
       video.play().catch((error) => {
@@ -104,7 +111,7 @@ export default function VideoService() {
       window.removeEventListener("resize", handleResize);
       ScrollTrigger.killAll();
     };
-  }, []);
+  }, [containerRef]);
 
   return (
     <main ref={containerRef} className="video-container" id="video-service">
